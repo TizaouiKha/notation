@@ -1,0 +1,45 @@
+/* Styles */
+$text-background: #08090b;
+$text-color: #08090b;
+$background-background: #f4f5f9;
+$background-color: #f4f5f9;
+$accent-background: #6280e3;
+$accent-color: #6280e3;
+$background-gradiant-background: linear-gradient(
+    180deg,
+    #dddddd 0%,
+    #d9e1ff 59.216952323913574%,
+    #d6dfff 100%
+);
+$background-gradiant-color: #dddddd;
+$buttons-primary-background: #4c66ba;
+$buttons-primary-color: #4c66ba;
+$buttons-secondary-background: #8fa2e0;
+$buttons-secondary-color: #8fa2e0;
+@mixin work-sans-text {
+  font-family: Work Sans;
+  font-style: Regular;
+  font-size: 40px;
+  letter-spacing: -1.5%;
+  line-height: auto;
+  text-decoration-line: none;
+  text-transform: none;
+}
+@mixin lato-text {
+  font-family: Lato;
+  font-style: Regular;
+  font-size: 12px;
+  letter-spacing: -1.5%;
+  line-height: auto;
+  text-decoration-line: none;
+  text-transform: none;
+}
+@mixin poppins-text {
+  font-family: Poppins;
+  font-style: Regular;
+  font-size: 12px;
+  letter-spacing: -1.6%;
+  line-height: auto;
+  text-decoration-line: none;
+  text-transform: none;
+}
