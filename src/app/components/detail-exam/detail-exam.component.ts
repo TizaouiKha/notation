@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { ClasseService } from '../../service/classe.service';
 import { EtudiantService } from '../../service/etudiant.service';
@@ -11,8 +11,14 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ModificationService } from '../../service/modification.service';
-import { Subscription } from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
 import {environment} from "../../environnements/environment";
+import {Exam} from "../../model/exam";
+import {ExamService} from "../../service/exam.service";
+import {Matiere} from "../../model/matiere";
+import {MatiereService} from "../../service/matiere.service";
+import {Part} from "../../model/part";
+import {PartService} from "../../service/part.service";
 
 @Component({
   selector: 'app-detail-classe',
@@ -23,50 +29,70 @@ import {environment} from "../../environnements/environment";
   styleUrl: './detail-exam.component.css'
 })
 export class DetailExamComponent implements OnInit {
-  classe!: Classe;
+  exam!: Exam;
+  part!: Part;
   classeFormGroup!: FormGroup;
+  partFormGroup!: FormGroup;
+  classeList: Classe[] = [];
+  matiereList: Matiere[] = [];
   nomCtrlForm!: FormControl;
-  displayedColumns: string[] = ['id', 'lastName', 'firstName'];
-  etudiants : Etudiant[] = [];
+  displayedColumns: string[] = ['id', 'grade'];
+  etudiantsList : Etudiant[] = [];
   dataSourceEtudiants = new MatTableDataSource<Etudiant>();
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   selection = new SelectionModel<Etudiant>(true, []);
-  private subscriptionClasseAModifier!: Subscription;
-
+  private subscriptionExamAModifier!: Subscription;
+  partFormControl!: FormControl;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private classeService: ClasseService,
     private etudiantService: EtudiantService,
+    private matiereService: MatiereService,
+    private examService: ExamService,
+    private partService: PartService,
     private modificationService: ModificationService, private http: HttpClient
   ) { }
 
+
+
   ngOnInit(): void {
-    this.initLaClasse();
-    this.initEtudiants();
+    this.initExam();
+    this.initClasseList();
+    this.initMatiereList();
+    this.initEtudiantList();
     this.initFormControl();
   }
 
   ngOnDestroy() {
-    this.subscriptionClasseAModifier.unsubscribe();
+    this.subscriptionExamAModifier.unsubscribe();
   }
 
   /**
    * Cette méthode s'abonner au service de modification pour initialiser la classe.
    */
-  private initLaClasse(): void {
-    this.subscriptionClasseAModifier = this.modificationService.objet$.subscribe(
-      (classeAModifier: Classe) => {
-        this.classe = classeAModifier;
+  private initExam(): void {
+    this.subscriptionExamAModifier = this.modificationService.objet$.subscribe(
+      (examAModifier: Exam) => {
+        this.exam = examAModifier;
       });
   }
 
   /**
    * Initialiser des controles sur le formulaire.
    */
+  public initPartFormControl(): void {
+    this.partFormControl = this.formBuilder.control(
+      this.part.grade,
+      [Validators.required, Validators.maxLength(100)]
+    );
+    this.partFormGroup = this.formBuilder.group({
+      grade: this.partFormControl
+    });
+  }
   private initFormControl(): void {
     this.nomCtrlForm = this.formBuilder.control(
-      this.classe.name,
+      this.exam.type,
       [Validators.required, Validators.maxLength(100)]
     );
     this.classeFormGroup = this.formBuilder.group({
@@ -77,50 +103,37 @@ export class DetailExamComponent implements OnInit {
    * Si tous les checkbox sont sélectionnés.
    * @returns
    */
-  isTousSelectionnes(): boolean {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSourceEtudiants.data.length;
-    return numSelected === numRows;
+
+  private initClasseList(): void {
+    this.classeService.rechercherClasses().subscribe({
+      next: value => this.classeList = value,
+      error: err => console.error(err)
+    });
   }
 
-  /**
-   * action du bouton de "Sélectionner/déselectionner" tous les étudiants
-   */
-  selectionnerOuDeselectionnerTous(): void {
-    this.isTousSelectionnes() ?
-      this.selection.clear() :
-      this.dataSourceEtudiants.data.forEach(row => this.selection.select(row));
+  private initMatiereList(): void {
+    this.matiereService.rechercherMatieres().subscribe({
+      next: value => this.matiereList = value,
+      error: err => console.error(err)
+    });
   }
 
-  /**
-   * Enregistrer la classe.
-   */
+  private initEtudiantList(): void {
+    this.etudiantService.rechercherEtudiants().subscribe({
+      next: value => this.etudiantsList = value,
+      error: err => console.error(err)
+    });
+  }
+
   enregistrer(): void {
     if (this.classeFormGroup.valid) {
-      this.classeService.enregistrerClasse(this.classe).subscribe({
+      this.examService.enregistrerExam(this.exam).subscribe({
         next: value => {
-          this.http.post(environment.enregistrerClasse, this.classe);
-          this.router.navigateByUrl('classes');
+          this.router.navigateByUrl('');
         },
         error: err => console.error(err)
       });
-      if(this.selection.selected){
-        this.etudiants = this.selection.selected;
-        for(let i = 0; i < this.etudiants.length; i++){
-          let etudiant = this.etudiants[i];
-          etudiant.idClass = this.classe.id;
-          this.etudiantService.modifierEtudiant(etudiant).subscribe(
-            {
-              next: value => {
-                this.http.post(environment.modifierEtudiant, etudiant);
-              },
-              error: err => console.error(err)
-            }
-          )
-        }
       }
-
-    }
   }
   /**
    * Récupérer le message d'erreur en fonction de validateur.
@@ -145,16 +158,4 @@ export class DetailExamComponent implements OnInit {
   /**
    * Initialiser la liste des étudiants de la classe ou à ajouter dans la classe.
    */
-  private initEtudiants(): void {
-    this.dataSourceEtudiants.data = this.classe.etudiants ? this.classe.etudiants : [];
-    // Sélectionner tous les étudiants de la classe, en cas de modification
-    this.dataSourceEtudiants.data.forEach(row => this.selection.select(row));
-
-    this.etudiantService.rechercherEtudiantsDisponibles().subscribe({
-      next: value => this.dataSourceEtudiants.data = [...this.dataSourceEtudiants.data, ...value],
-      error: err => console.error(err)
-    });
-    this.dataSourceEtudiants.paginator = this.paginator;
-  }
-
 }

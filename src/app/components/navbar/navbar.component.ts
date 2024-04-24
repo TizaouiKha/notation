@@ -55,7 +55,7 @@ export class NavbarComponent {
       this.coleurEtudiantClassActive = 'no-active-button';
       this.coleurMatiereClassActive = 'active-button';
       this.coleurDevoirClassActive = 'no-active-button';
-    } else if (url.includes('devoir')) {
+    } else if (url.includes('detail-exam')) {
       this.coleurAccueilClassActive = 'no-active-button';
       this.coleurClasseClassActive = 'no-active-button';
       this.coleurEtudiantClassActive = 'no-active-button';

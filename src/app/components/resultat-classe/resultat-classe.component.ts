@@ -54,7 +54,9 @@ export class ResultatClasseComponent implements OnInit {
    */
   private initClasseList(): void {
     this.classeService.rechercherClasses().subscribe({
-      next: value => this.dataSource.data = value,
+      next: res => {
+        this.dataSource.data = res
+      },
       error: err => console.error(err)
     });
   }

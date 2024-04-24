@@ -6,6 +6,7 @@ export const environment = {
   modifierClasse: 'http://localhost:8080/class/update',
   supprimerClasse: 'http://localhost:8080/class/delete',
   rechercherEtudiants: 'http://localhost:8080/student/all',
+  rechercherEtudiantById: 'http://localhost:8080/student/find',
   enregistrerEtudiant: 'http://localhost:8080/student/add',
   rechercherEtudiantsDisponibles: 'http://localhost:8080/student/findByIdClassNull',
   rechercherEtudiantsByClasse: 'http://localhost:8080/student/findByIdClass',
@@ -15,6 +16,10 @@ export const environment = {
   enregistrerMatiere: 'http://localhost:8080/subject/add',
   supprimerMatiere: 'http://localhost:8080/subject/delete',
   rechercherExam: 'http://localhost:8080/exam/all',
+  supprimerExam: 'http://localhost:8080/exam/delete',
+  enregistrerExam: 'http://localhost:8080/exam/add',
+  modifierExam: 'http://localhost:8080/exam/update',
+  enregistrerPart: 'http://localhost:8080/part/add',
 
 
 };

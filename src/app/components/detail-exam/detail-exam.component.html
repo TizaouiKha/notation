@@ -1,7 +1,7 @@
 <div class="align-center">
   <mat-card>
     <mat-card-content>
-      @if (classe.id == null) {
+      @if (exam.id == null) {
       <mat-label>
         <p>Création</p>
       </mat-label>
@@ -13,47 +13,103 @@
 
       <form class="example-form" [formGroup]="classeFormGroup">
         <mat-form-field class="example-full-width">
-          <mat-label>Nom de classe</mat-label>
-          <input name="nom" matInput type="text" placeholder="Ex. Classe STS" [(ngModel)]="classe.name"
+          <mat-label>Type d'examen</mat-label>
+          <input name="type" matInput type="text" placeholder="Ex. Classe STS" [(ngModel)]="exam.type"
             [formControl]="nomCtrlForm">
-          @if (classe.name) {
-          <button matSuffix mat-icon-button aria-label="Clear" (click)="classe.name=''">
+          @if (exam.type) {
+          <button matSuffix mat-icon-button aria-label="Clear" (click)="exam.type=''">
             <mat-icon>close</mat-icon>
           </button>
           }
           <mat-error>{{getMessageErreur(nomCtrlForm)}}</mat-error>
         </mat-form-field>
-        <mat-label>La liste des étudiants</mat-label>
-        <table mat-table [dataSource]="dataSourceEtudiants">
-          <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef>
-              <mat-checkbox (change)="$event ? selectionnerOuDeselectionnerTous() : null"
-                [checked]="selection.hasValue() && isTousSelectionnes()"
-                [indeterminate]="selection.hasValue() && !isTousSelectionnes()">
-              </mat-checkbox>
-            </th>
-            <td mat-cell *matCellDef="let row">
-              <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
-                [checked]="selection.isSelected(row)">
-              </mat-checkbox>
-            </td>
-          </ng-container>
+        <mat-form-field class="example-full-width">
+          <mat-label>Date</mat-label>
+          <input name="nom" matInput type="text" placeholder="Ex. Classe STS" [(ngModel)]="exam.date"
+                 [formControl]="nomCtrlForm">
+          @if (exam.date) {
+            <button matSuffix mat-icon-button aria-label="Clear" (click)="exam.date=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          }
+          <mat-error>{{getMessageErreur(nomCtrlForm)}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Coeeficient</mat-label>
+          <input name="nom" matInput type="text" placeholder="Ex. Classe STS" [(ngModel)]="exam.coefficient"
+                 [formControl]="nomCtrlForm">
+          @if (exam.coefficient) {
+            <button matSuffix mat-icon-button aria-label="Clear" (click)="exam.coefficient=0">
+              <mat-icon>close</mat-icon>
+            </button>
+          }
+          <mat-error>{{getMessageErreur(nomCtrlForm)}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Nombre de parties</mat-label>
+          <input name="parts" matInput type="text" placeholder="Ex. Classe STS" [(ngModel)]="exam.numberPart"
+                 [formControl]="nomCtrlForm">
+          @if (exam.numberPart) {
+            <button matSuffix mat-icon-button aria-label="Clear" (click)="exam.numberPart=0">
+              <mat-icon>close</mat-icon>
+            </button>
+          }
+          <mat-error>{{getMessageErreur(nomCtrlForm)}}</mat-error>
+        </mat-form-field>
+        @if (exam.numberPart) {
+          {{this.initPartFormControl()}}
+          <form class="example-form" [formGroup]="partFormGroup">
+            <mat-form-field class="example-full-width">
+              <mat-label>Grade</mat-label>
+              <input type="number" matInput name="grade"  [formControl]="partFormControl" [(ngModel)]="part.grade"
+                     placeholder="Ex. 10">
+              @if (part.grade) {
+                <button matSuffix mat-icon-button aria-label="Clear" (click)="exam.numberPart=0">
+                  <mat-icon>close</mat-icon>
+                </button>
+              }
+            </mat-form-field>
+          </form>
 
-          <!-- Nom Column -->
-          <ng-container matColumnDef="lastName">
-            <th mat-header-cell *matHeaderCellDef> Nom </th>
-            <td mat-cell *matCellDef="let etudiant"> {{etudiant.lastName}} </td>
-          </ng-container>
-
-          <!-- Prenom Column -->
-          <ng-container matColumnDef="firstName">
-            <th mat-header-cell *matHeaderCellDef> Prénom </th>
-            <td mat-cell *matCellDef="let etudiant"> {{etudiant.firstName}} </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
+        }
+        <mat-form-field class="example-full-width">
+          <mat-label>Note</mat-label>
+          <input name="nom" matInput type="text" placeholder="Ex. Classe STS" [(ngModel)]="exam.points"
+                 [formControl]="nomCtrlForm">
+          @if (exam.points) {
+            <button matSuffix mat-icon-button aria-label="Clear" (click)="exam.points=0">
+              <mat-icon>close</mat-icon>
+            </button>
+          }
+          <mat-error>{{getMessageErreur(nomCtrlForm)}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Classe</mat-label>
+          <mat-select name="classSelect" [(ngModel)]="exam.idClass" [ngModelOptions]="{standalone: true}">
+            <mat-option [value]=""></mat-option>
+            @for (classe of classeList; track classe) {
+              <mat-option [value]="classe.id">{{classe.name}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Matiere</mat-label>
+          <mat-select name="classSelect" [(ngModel)]="exam.idSubject" [ngModelOptions]="{standalone: true}">
+            <mat-option [value]=""></mat-option>
+            @for (matiere of matiereList; track matiere) {
+              <mat-option [value]="matiere.id">{{matiere.subject}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+        <mat-label>Etudiant</mat-label>
+        <mat-select name="classSelect" [(ngModel)]="exam.idStudent" [ngModelOptions]="{standalone: true}">
+          <mat-option [value]=""></mat-option>
+          @for (etudiant of etudiantsList; track etudiant) {
+            <mat-option [value]="etudiant.id">{{etudiant.lastName+ " " + etudiant.firstName}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
 
         <mat-card-actions class="example-full-width align-center">
           <button mat-fab extended color="primary" (click)="enregistrer()">

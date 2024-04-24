@@ -20,6 +20,13 @@ export class EtudiantService {
     return this.http.get(environment.rechercherEtudiants) as Observable<Etudiant[]>;
   }
 
+  rechercherEtudiantById(etudianttId: number
+  ): Observable<Etudiant[]> {
+    let paramList: HttpParams = new HttpParams();
+    paramList = paramList.set('id', etudianttId);
+    return this.http.get(environment.rechercherEtudiantById, {params: paramList}) as Observable<Etudiant[]>;
+  }
+
   rechercherEtudiantsDisponibles(
   ): Observable<Etudiant[]> {
     return this.http.get(environment.rechercherEtudiantsDisponibles) as Observable<Etudiant[]>;

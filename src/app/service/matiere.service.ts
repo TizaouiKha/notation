@@ -18,13 +18,20 @@ export class MatiereService {
 
   rechercherMatieres(
   ): Observable<Matiere[]> {
-    return this.http.get(environment.rechercherMatieres) as Observable<Etudiant[]>;
+    return this.http.get(environment.rechercherMatieres) as Observable<Matiere[]>;
+  }
+
+  rechercherMatiereById(matiereId: number
+  ): Observable<Matiere> {
+    let paramList: HttpParams = new HttpParams();
+    paramList = paramList.set('id', matiereId);
+    return this.http.get(environment.rechercherMatieres, {params: paramList}) as Observable<Matiere>;
   }
 
 
   enregistrerMatiere(matiere: Matiere
   ): Observable<Matiere> {
-    return this.http.post(environment.enregistrerMatiere, matiere) as Observable<Etudiant>;
+    return this.http.post(environment.enregistrerMatiere, matiere) as Observable<Matiere>;
   }
 
   supprimerMatiere(matiereId: number

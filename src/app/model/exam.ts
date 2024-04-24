@@ -5,8 +5,8 @@ export interface Exam {
   date?: string;
   coefficient?: number;
   numberPart?: number;
-  idSubject?: number;
-  idClass?: number;
-  idStudent?: number;
+  idSubject?: any;
+  idClass?: any;
+  idStudent?: any;
   points?: number;
 }
