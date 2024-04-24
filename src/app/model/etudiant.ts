@@ -4,5 +4,5 @@ export interface Etudiant {
   lastName?: string;
   firstName?: string;
   picture?: string;
-  idClass?: number;
+  idClass?: any;
 }

@@ -8,6 +8,7 @@ import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterLink, Router } from '@angular/router';
 import { ModificationService } from '../../service/modification.service';
+import {ClasseService} from "../../service/classe.service";
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 1000,
@@ -28,11 +29,13 @@ export class ResultatEtudiantComponent implements OnInit {
   constructor(
     private router: Router,
     private etudiantService: EtudiantService,
+    private classeService: ClasseService,
     private modificationService: ModificationService
   ) { }
 
   displayedColumns: string[] = ['id', 'lastName', 'firstName', 'idClass', 'picture'];
-  dataSource = new MatTableDataSource<Etudiant>();
+  nomClassMap: Map<number, string> = new Map([]);
+  dataSource = new MatTableDataSource<any>();
 
   @ViewChild(MatPaginator) set paginator(pager: MatPaginator) {
     if (pager) {
@@ -61,8 +64,22 @@ export class ResultatEtudiantComponent implements OnInit {
    * Initialiser la liste de tous les étudiants
    */
   initEtudiantList(): void {
+    this.classeService.rechercherClasses().subscribe({
+      next: res => {
+        for(let i = 0; i< res.length; i++){
+          this.nomClassMap.set(<number>res[i].id, <string>res[i].name)
+        }
+      },
+      error: err => console.error(err)
+    })
     this.etudiantService.rechercherEtudiants().subscribe({
-      next: value => this.dataSource.data = value,
+      next: res => {
+        for(let i = 0; i< res.length; i++){
+          let classname = this.nomClassMap.get(res[i].idClass);
+          res[i].idClass = classname;
+        }
+        this.dataSource.data = res;
+      },
       error: err => console.error(err)
     });
     this.dataSource.paginator = this.paginator;
@@ -73,7 +90,7 @@ export class ResultatEtudiantComponent implements OnInit {
     * Elle émet un message pour les abbonnés avec un étudiant vide.
     */
   ajouterEtudiant(): void {
-    this.modificationService.envoyerObjetACreerOuModifier({});
+    this.modificationService.envoyerObjetACreerOuModifier(null);
     this.router.navigateByUrl('detail-etudiant');
   }
 
