@@ -5,6 +5,7 @@ import {ResultatEtudiantComponent} from "./components/resultat-etudiant/resultat
 import {ResultatMatiereComponent} from "./components/resultat-matiere/resultat-matiere.component";
 import {DetailClasseComponent} from "./components/detail-classe/detail-classe.component";
 import {DetailEtudiantComponent} from "./components/detail-etudiant/detail-etudiant.component";
+import {DetailMatiereComponent} from "./components/detail-matiere/detail-matiere.component";
 
 export const routes: Routes = [
   { path: '', component: AccueilComponent, },
@@ -13,4 +14,6 @@ export const routes: Routes = [
   { path: 'matieres', component: ResultatMatiereComponent },
   { path: 'detail-classe', component: DetailClasseComponent },
   { path: 'detail-etudiant', component: DetailEtudiantComponent },
+  { path: 'detail-matiere', component: DetailMatiereComponent },
+
 ];

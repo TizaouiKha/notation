@@ -1,9 +1,9 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {
   MatCell,
   MatCellDef,
   MatColumnDef,
-  MatHeaderCell,
+  MatHeaderCell, MatHeaderCellDef,
   MatHeaderRow,
   MatHeaderRowDef,
   MatRow, MatRowDef, MatTable, MatTableDataSource
@@ -13,10 +13,10 @@ import {MatIcon} from "@angular/material/icon";
 import {MatPaginator, MatPaginatorIntl} from "@angular/material/paginator";
 import {MatTooltip} from "@angular/material/tooltip";
 import {Router} from "@angular/router";
-import {ClasseService} from "../../service/classe.service";
-import { MatiereService } from '../../service/matiere.service';
 import {ModificationService} from "../../service/modification.service";
 import {Classe} from "../../model/classe";
+import {MatiereService} from "../../service/matiere.service";
+import {Matiere} from "../../model/matiere";
 
 @Component({
   selector: 'app-resultat-matiere',
@@ -35,12 +35,13 @@ import {Classe} from "../../model/classe";
     MatRow,
     MatRowDef,
     MatTable,
-    MatTooltip
+    MatTooltip,
+    MatHeaderCellDef
   ],
   templateUrl: './resultat-matiere.component.html',
   styleUrl: './resultat-matiere.component.css'
 })
-export class ResultatMatiereComponent {
+export class ResultatMatiereComponent implements OnInit{
   displayedColumns: string[] = ['id', 'subject'];
   dataSource = new MatTableDataSource<any>();
 
@@ -64,7 +65,7 @@ export class ResultatMatiereComponent {
   }
   constructor(
     private router: Router,
-    private matiereService: matiereService,
+    private matiereService: MatiereService,
     private modificationService: ModificationService) {
   }
   ngOnInit(): void {
@@ -76,10 +77,11 @@ export class ResultatMatiereComponent {
    * Initialiser la liste de tous les clases
    */
   private initClasseList(): void {
-    this.matiereService.rechercherClasses().subscribe({
+    this.matiereService.rechercherMatieres().subscribe({
       next: value => this.dataSource.data = value,
       error: err => console.error(err)
     });
+    console.log(this.dataSource);
   }
 
   /**
@@ -95,7 +97,7 @@ export class ResultatMatiereComponent {
    * Action de modification d'une classe.
    * Elle émet un message pour les abbonnés, la classe sélectionnée.
    */
-  modifierMatiere(matiereAModifier: Classe): void {
+  modifierMatiere(matiereAModifier: Matiere): void {
     this.modificationService.envoyerObjetACreerOuModifier(matiereAModifier);
     this.router.navigateByUrl('detail-matiere');
   }
