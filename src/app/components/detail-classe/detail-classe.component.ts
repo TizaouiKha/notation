@@ -26,7 +26,8 @@ export class DetailClasseComponent implements OnInit {
   classe!: Classe;
   classeFormGroup!: FormGroup;
   nomCtrlForm!: FormControl;
-  displayedColumns: string[] = ['id', 'nom', 'prenom'];
+  displayedColumns: string[] = ['id', 'lastName', 'firstName'];
+  etudiants : Etudiant[] = [];
   dataSourceEtudiants = new MatTableDataSource<Etudiant>();
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   selection = new SelectionModel<Etudiant>(true, []);
@@ -96,7 +97,6 @@ export class DetailClasseComponent implements OnInit {
    */
   enregistrer(): void {
     if (this.classeFormGroup.valid) {
-      this.classe.etudiants = this.selection.selected;
       this.classeService.enregistrerClasse(this.classe).subscribe({
         next: value => {
           this.http.post(environment.enregistrerClasse, this.classe);
@@ -104,6 +104,22 @@ export class DetailClasseComponent implements OnInit {
         },
         error: err => console.error(err)
       });
+      if(this.selection.selected){
+        this.etudiants = this.selection.selected;
+        for(let i = 0; i < this.etudiants.length; i++){
+          let etudiant = this.etudiants[i];
+          etudiant.idClass = this.classe.id;
+          this.etudiantService.modifierEtudiant(etudiant).subscribe(
+            {
+              next: value => {
+                this.http.post(environment.modifierEtudiant, etudiant);
+              },
+              error: err => console.error(err)
+            }
+          )
+        }
+      }
+
     }
   }
   /**

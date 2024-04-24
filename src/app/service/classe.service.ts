@@ -33,4 +33,8 @@ export class ClasseService {
   ): Observable<Classe> {
     return this.http.post(environment.enregistrerClasse, classe) as Observable<Classe>;
   }
+
+  modifierClasse(classe: Classe): Observable<Classe>{
+    return this.http.post(environment.modifierClasse, classe) as Observable<Classe>;
+  }
 }

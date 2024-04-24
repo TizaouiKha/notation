@@ -38,4 +38,7 @@ export class EtudiantService {
       params: paramList,
     }) as Observable<HttpResponse<string>>;
   }
+  modifierEtudiant(etudiant: Etudiant): Observable<Etudiant>{
+    return this.http.post(environment.enregistrerEtudiant, etudiant) as Observable<Etudiant>;
+  }
 }

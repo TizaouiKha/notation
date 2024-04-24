@@ -64,7 +64,7 @@ export class ResultatClasseComponent implements OnInit {
     * Elle émet un message pour les abbonnés avec une classe vide.
     */
   ajouterClasse(): void {
-    this.modificationService.envoyerObjetACreerOuModifier({});
+    this.modificationService.envoyerObjetACreerOuModifier(null);
     this.router.navigateByUrl('detail-classe');
   }
 

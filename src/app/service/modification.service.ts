@@ -13,7 +13,10 @@ export class ModificationService {
   objet$ = this.objetAModifier.asObservable();
 
   envoyerObjetACreerOuModifier(objetAModifier: any) {
-    this.objetAModifier.next(objetAModifier);
+    console.log(objetAModifier);
+    if(objetAModifier != null) {
+      this.objetAModifier.next(objetAModifier);
+    }
   }
 
   reinitialiserObjetAModifier() {
