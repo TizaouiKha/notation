@@ -24,6 +24,12 @@ export class EtudiantService {
   ): Observable<Etudiant[]> {
     return this.http.get(environment.rechercherEtudiantsDisponibles) as Observable<Etudiant[]>;
   }
+  rechercherEtudiantsByClasse(classeId: number
+  ): Observable<Etudiant[]> {
+    let paramList: HttpParams = new HttpParams();
+    paramList = paramList.set('idClass', classeId);
+    return this.http.get(environment.rechercherEtudiantsByClasse, {params: paramList}) as Observable<Etudiant[]>;
+  }
 
   enregistrerEtudiant(etudiant: Etudiant
   ): Observable<Etudiant> {

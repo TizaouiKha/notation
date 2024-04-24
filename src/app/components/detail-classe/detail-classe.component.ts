@@ -146,9 +146,15 @@ export class DetailClasseComponent implements OnInit {
    * Initialiser la liste des étudiants de la classe ou à ajouter dans la classe.
    */
   private initEtudiants(): void {
-    this.dataSourceEtudiants.data = this.classe.etudiants ? this.classe.etudiants : [];
+    // this.dataSourceEtudiants.data = this.classe.etudiants ? this.classe.etudiants : [];
     // Sélectionner tous les étudiants de la classe, en cas de modification
-    this.dataSourceEtudiants.data.forEach(row => this.selection.select(row));
+    this.etudiantService.rechercherEtudiantsByClasse(this.classe.id!).subscribe({
+      next: value => this.dataSourceEtudiants.data = value,
+      error: err => console.error(err),
+      complete: () => this.dataSourceEtudiants.data.forEach(row => this.selection.select(row))
+    });
+
+
 
     this.etudiantService.rechercherEtudiantsDisponibles().subscribe({
       next: value => this.dataSourceEtudiants.data = [...this.dataSourceEtudiants.data, ...value],
