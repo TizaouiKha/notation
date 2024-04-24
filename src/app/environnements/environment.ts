@@ -14,4 +14,7 @@ export const environment = {
   rechercherMatieres: 'http://localhost:8080/subject/all',
   enregistrerMatiere: 'http://localhost:8080/subject/add',
   supprimerMatiere: 'http://localhost:8080/subject/delete',
+  rechercherExam: 'http://localhost:8080/exam/all',
+
+
 };
