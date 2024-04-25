@@ -13,8 +13,8 @@
 
       <form class="example-form" [formGroup]="matiereFormGroup">
         <mat-form-field class="example-full-width">
-          <mat-label>Nom de matiere</mat-label>
-          <input name="nom" matInput type="text" placeholder="Ex. Classe STS" [(ngModel)]="matiere.subject"
+          <mat-label>Nom de Matiere</mat-label>
+          <input name="nom" matInput type="text" placeholder="Ex. Mathématiques" [(ngModel)]="matiere.subject"
             [formControl]="nomCtrlForm">
           @if (matiere.subject) {
           <button matSuffix mat-icon-button aria-label="Clear" (click)="matiere.subject=''">

@@ -25,7 +25,7 @@
 
         <mat-form-field class="example-full-width">
           <mat-label>Prénom</mat-label>
-          <input name="prenom" matInput type="text" [(ngModel)]="etudiant.firstName" [formControl]="prenomCtrlForm">
+          <input name="prenom" matInput type="text" placeholder="Ex. Jean" [(ngModel)]="etudiant.firstName" [formControl]="prenomCtrlForm">
           @if (etudiant.firstName) {
           <button matSuffix mat-icon-button aria-label="Clear" (click)="etudiant.firstName=''">
             <mat-icon>close</mat-icon>
