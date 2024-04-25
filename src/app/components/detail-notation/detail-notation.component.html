@@ -14,7 +14,7 @@
       <form class="example-form" [formGroup]="partFormGroup">
         <mat-form-field class="example-full-width">
           <mat-label>Note</mat-label>
-          <input name="nom" matInput type="text" placeholder="Ex. Mathématiques" [(ngModel)]="part.grade"
+          <input name="nom" matInput type="text" placeholder="Ex. 15" [(ngModel)]="part.grade"
             [formControl]="nomCtrlForm">
           @if (part.grade) {
           <button matSuffix mat-icon-button aria-label="Clear" (click)="part.grade=0">
@@ -25,7 +25,7 @@
         </mat-form-field>
         <mat-form-field class="example-full-width">
           <mat-label>Nom de la partie</mat-label>
-          <input name="nom" matInput type="text" placeholder="Ex. Mathématiques" [(ngModel)]="part.name"
+          <input name="nom" matInput type="text" placeholder="Ex. Partie II" [(ngModel)]="part.name"
                  [formControl]="nomCtrlForm">
           @if (part.name) {
             <button matSuffix mat-icon-button aria-label="Clear" (click)="part.name=''">
@@ -36,7 +36,7 @@
         </mat-form-field>
         <mat-form-field class="example-full-width">
           <mat-label>Id Exam</mat-label>
-          <input name="nom" matInput type="text" placeholder="Ex. Mathématiques" [(ngModel)]="part.idExam"
+          <input name="nom" matInput type="text" placeholder="Ex. 3" [(ngModel)]="part.idExam"
                  [formControl]="nomCtrlForm">
           @if (part.idExam) {
             <button matSuffix mat-icon-button aria-label="Clear" (click)="part.idExam=0">
