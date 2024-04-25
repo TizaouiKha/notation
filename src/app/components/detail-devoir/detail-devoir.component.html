@@ -14,7 +14,7 @@
       <form class="example-form" [formGroup]="classeFormGroup">
         <mat-form-field class="example-full-width">
           <mat-label>Type d'examen</mat-label>
-          <input name="type" matInput type="text" placeholder="Ex. Classe STS" [(ngModel)]="exam.type"
+          <input name="type" matInput type="text" placeholder="Ex. Examen" [(ngModel)]="exam.type"
             [formControl]="nomCtrlForm">
           @if (exam.type) {
           <button matSuffix mat-icon-button aria-label="Clear" (click)="exam.type=''">
@@ -25,7 +25,7 @@
         </mat-form-field>
         <mat-form-field class="example-full-width">
           <mat-label>Date</mat-label>
-          <input name="nom" matInput type="text" placeholder="Ex. Classe STS" [(ngModel)]="exam.date"
+          <input name="nom" matInput type="text" placeholder="Ex. 2024-09-28" [(ngModel)]="exam.date"
                  [formControl]="nomCtrlForm">
           @if (exam.date) {
             <button matSuffix mat-icon-button aria-label="Clear" (click)="exam.date=''">
@@ -35,8 +35,8 @@
           <mat-error>{{getMessageErreur(nomCtrlForm)}}</mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width">
-          <mat-label>Coeeficient</mat-label>
-          <input name="nom" matInput type="text" placeholder="Ex. Classe STS" [(ngModel)]="exam.coefficient"
+          <mat-label>Coefficient</mat-label>
+          <input name="nom" matInput type="text" placeholder="Ex. 2" [(ngModel)]="exam.coefficient"
                  [formControl]="nomCtrlForm">
           @if (exam.coefficient) {
             <button matSuffix mat-icon-button aria-label="Clear" (click)="exam.coefficient=0">
@@ -47,7 +47,7 @@
         </mat-form-field>
         <mat-form-field class="example-full-width">
           <mat-label>Nombre de parties</mat-label>
-          <input name="nom" matInput type="text" placeholder="Ex. Classe STS" [(ngModel)]="exam.numberPart"
+          <input name="nom" matInput type="text" placeholder="Ex. 3" [(ngModel)]="exam.numberPart"
                  [formControl]="nomCtrlForm">
           @if (exam.numberPart) {
             <button matSuffix mat-icon-button aria-label="Clear" (click)="exam.numberPart=0">
@@ -58,7 +58,7 @@
         </mat-form-field>
         <mat-form-field class="example-full-width">
           <mat-label>Note</mat-label>
-          <input name="nom" matInput type="text" placeholder="Ex. Classe STS" [(ngModel)]="exam.points"
+          <input name="nom" matInput type="text" placeholder="Ex. 14" [(ngModel)]="exam.points"
                  [formControl]="nomCtrlForm">
           @if (exam.points) {
             <button matSuffix mat-icon-button aria-label="Clear" (click)="exam.points=0">

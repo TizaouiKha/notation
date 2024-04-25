@@ -25,10 +25,10 @@ import {PartService} from "../../service/part.service";
   standalone: true,
   imports: [MaterialModule],
   providers: [ClasseService, EtudiantService],
-  templateUrl: './detail-exam.component.html',
-  styleUrl: './detail-exam.component.css'
+  templateUrl: './detail-devoir.component.html',
+  styleUrl: './detail-devoir.component.css'
 })
-export class DetailExamComponent implements OnInit {
+export class DetailDevoirComponent implements OnInit {
   exam!: Exam;
   part!: Part;
   classeFormGroup!: FormGroup;

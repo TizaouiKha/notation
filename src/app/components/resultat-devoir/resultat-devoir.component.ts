@@ -125,7 +125,7 @@ export class ResultatDevoirComponent implements OnInit {
    */
   modifierExam(ExamAModifier: Classe): void {
     this.modificationService.envoyerObjetACreerOuModifier(ExamAModifier);
-    this.router.navigateByUrl('detail-exam');
+    this.router.navigateByUrl('detail-devoir');
   }
 
   /**
