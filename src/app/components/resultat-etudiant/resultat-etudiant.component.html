@@ -34,9 +34,10 @@
     <!-- Photo Column -->
     <ng-container matColumnDef="picture">
       <th mat-header-cell *matHeaderCellDef> Photo </th>
-      <td mat-cell *matCellDef="let etudiant">
-        {{etudiant.picture}}
+      <td mat-cell *matCellDef="let etudiant" >
+       <div *ngIf="etudiant.picture"> <img style="width: 200px" src="../../assets/img/{{etudiant.picture}}.png"></div>
       </td>
+
     </ng-container>
 
     <ng-container matColumnDef="idClass">

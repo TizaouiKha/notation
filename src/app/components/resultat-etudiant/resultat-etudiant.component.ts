@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterLink, Router } from '@angular/router';
 import { ModificationService } from '../../service/modification.service';
 import {ClasseService} from "../../service/classe.service";
+import {NgIf} from "@angular/common";
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 1000,
@@ -19,7 +20,7 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
 @Component({
   selector: 'app-resultat-etudiant',
   standalone: true,
-  imports: [MaterialModule, HttpClientModule, RouterLink
+  imports: [MaterialModule, HttpClientModule, RouterLink, NgIf
   ],
   providers: [EtudiantService, { provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: myCustomTooltipDefaults }],
   templateUrl: './resultat-etudiant.component.html',

@@ -148,11 +148,13 @@ export class DetailClasseComponent implements OnInit {
   private initEtudiants(): void {
     // this.dataSourceEtudiants.data = this.classe.etudiants ? this.classe.etudiants : [];
     // Sélectionner tous les étudiants de la classe, en cas de modification
-    this.etudiantService.rechercherEtudiantsByClasse(this.classe.id!).subscribe({
+    if(this.classe.id){
+    this.etudiantService.rechercherEtudiantsByClasse(this.classe.id).subscribe({
       next: value => this.dataSourceEtudiants.data = value,
       error: err => console.error(err),
       complete: () => this.dataSourceEtudiants.data.forEach(row => this.selection.select(row))
     });
+    }
 
 
 
