@@ -19,10 +19,10 @@ import {EtudiantService} from "../../service/etudiant.service";
   standalone: true,
   imports: [MaterialModule, HttpClientModule, RouterLink],
   providers: [ExamService],
-  templateUrl: './accueil.component.html',
-  styleUrl: './accueil.component.css'
+  templateUrl: './resultat-devoir.component.html',
+  styleUrl: './resultat-devoir.component.css'
 })
-export class AccueilComponent implements OnInit {
+export class ResultatDevoirComponent implements OnInit {
   displayedColumns: string[] = ['id', 'type','date','coefficient','numberPart','idSubject','idClass','idStudent','points'];
   dataSource = new MatTableDataSource<any>();
   nomMatiereMap: Map<number, string> = new Map([]);
@@ -58,6 +58,11 @@ export class AccueilComponent implements OnInit {
   ngOnInit(): void {
     this.initExamList();
     this.dataSource.paginator = this.paginator;
+  }
+
+  ajouterDevoir(): void {
+    this.modificationService.envoyerObjetACreerOuModifier(null);
+    this.router.navigateByUrl('detail-devoir');
   }
 
   /**

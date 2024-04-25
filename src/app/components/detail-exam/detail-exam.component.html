@@ -47,7 +47,7 @@
         </mat-form-field>
         <mat-form-field class="example-full-width">
           <mat-label>Nombre de parties</mat-label>
-          <input name="parts" matInput type="text" placeholder="Ex. Classe STS" [(ngModel)]="exam.numberPart"
+          <input name="nom" matInput type="text" placeholder="Ex. Classe STS" [(ngModel)]="exam.numberPart"
                  [formControl]="nomCtrlForm">
           @if (exam.numberPart) {
             <button matSuffix mat-icon-button aria-label="Clear" (click)="exam.numberPart=0">
@@ -56,22 +56,6 @@
           }
           <mat-error>{{getMessageErreur(nomCtrlForm)}}</mat-error>
         </mat-form-field>
-<!--        @if (exam.numberPart) {-->
-<!--          {{this.initPartFormControl()}}-->
-<!--          <form class="example-form" [formGroup]="partFormGroup">-->
-<!--            <mat-form-field class="example-full-width">-->
-<!--              <mat-label>Grade</mat-label>-->
-<!--              <input type="number" matInput name="grade"  [formControl]="partFormControl" [(ngModel)]="part.grade"-->
-<!--                     placeholder="Ex. 10">-->
-<!--              @if (part.grade) {-->
-<!--                <button matSuffix mat-icon-button aria-label="Clear" (click)="exam.numberPart=0">-->
-<!--                  <mat-icon>close</mat-icon>-->
-<!--                </button>-->
-<!--              }-->
-<!--            </mat-form-field>-->
-<!--          </form>-->
-
-<!--        }-->
         <mat-form-field class="example-full-width">
           <mat-label>Note</mat-label>
           <input name="nom" matInput type="text" placeholder="Ex. Classe STS" [(ngModel)]="exam.points"

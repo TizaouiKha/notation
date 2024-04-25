@@ -1,3 +1,4 @@
+import {Part} from "./part";
 
 export interface Exam {
   id?: number;
@@ -9,4 +10,5 @@ export interface Exam {
   idClass?: any;
   idStudent?: any;
   points?: number;
+  parts?: Part[];
 }

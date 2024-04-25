@@ -81,22 +81,13 @@ export class DetailExamComponent implements OnInit {
   /**
    * Initialiser des controles sur le formulaire.
    */
-  public initPartFormControl(): void {
-    this.partFormControl = this.formBuilder.control(
-      this.part.grade,
-      [Validators.required, Validators.maxLength(100)]
-    );
-    this.partFormGroup = this.formBuilder.group({
-      grade: this.partFormControl
-    });
-  }
   private initFormControl(): void {
     this.nomCtrlForm = this.formBuilder.control(
-      this.exam.type,
+      this.exam,
       [Validators.required, Validators.maxLength(100)]
     );
     this.classeFormGroup = this.formBuilder.group({
-      nom: this.nomCtrlForm
+      nom: this.nomCtrlForm,
     });
   }
   /**
