@@ -1,0 +1,56 @@
+<div class="align-center">
+  <mat-card>
+    <mat-card-content>
+      @if (part.id == null) {
+      <mat-label>
+        <p>Création</p>
+      </mat-label>
+      } @else {
+      <mat-label>
+        <p>Modification</p>
+      </mat-label>
+      }
+
+      <form class="example-form" [formGroup]="partFormGroup">
+        <mat-form-field class="example-full-width">
+          <mat-label>Note</mat-label>
+          <input name="nom" matInput type="text" placeholder="Ex. Mathématiques" [(ngModel)]="part.grade"
+            [formControl]="nomCtrlForm">
+          @if (part.grade) {
+          <button matSuffix mat-icon-button aria-label="Clear" (click)="part.grade=0">
+            <mat-icon>close</mat-icon>
+          </button>
+          }
+          <mat-error>{{getMessageErreur(nomCtrlForm)}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Nom de la partie</mat-label>
+          <input name="nom" matInput type="text" placeholder="Ex. Mathématiques" [(ngModel)]="part.name"
+                 [formControl]="nomCtrlForm">
+          @if (part.name) {
+            <button matSuffix mat-icon-button aria-label="Clear" (click)="part.name=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          }
+          <mat-error>{{getMessageErreur(nomCtrlForm)}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Id Exam</mat-label>
+          <input name="nom" matInput type="text" placeholder="Ex. Mathématiques" [(ngModel)]="part.idExam"
+                 [formControl]="nomCtrlForm">
+          @if (part.idExam) {
+            <button matSuffix mat-icon-button aria-label="Clear" (click)="part.idExam=0">
+              <mat-icon>close</mat-icon>
+            </button>
+          }
+          <mat-error>{{getMessageErreur(nomCtrlForm)}}</mat-error>
+        </mat-form-field>
+        <mat-card-actions class="example-full-width align-center">
+          <button mat-fab extended color="primary" (click)="enregistrer()">
+            Enregister
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

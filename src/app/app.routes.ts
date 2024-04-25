@@ -7,11 +7,14 @@ import {DetailClasseComponent} from "./components/detail-classe/detail-classe.co
 import {DetailEtudiantComponent} from "./components/detail-etudiant/detail-etudiant.component";
 import {DetailMatiereComponent} from "./components/detail-matiere/detail-matiere.component";
 import {DetailExamComponent} from "./components/detail-exam/detail-exam.component";
+import {AccueilComponent} from "./components/accueil/accueil.component";
+import {ResultatNotation} from "./components/resultat-notation/resultat-notation";
+import {DetailNotationComponent} from "./components/detail-notation/detail-notation.component";
 
 
 export const routes: Routes = [
 
-  { path: '', component: ResultatClasseComponent, },
+  { path: '', component: ResultatNotation, },
   { path: 'devoir', component: ResultatDevoirComponent, },
   { path: 'classes', component: ResultatClasseComponent },
   { path: 'etudiants', component: ResultatEtudiantComponent },
@@ -20,6 +23,7 @@ export const routes: Routes = [
   { path: 'detail-etudiant', component: DetailEtudiantComponent },
   { path: 'detail-matiere', component: DetailMatiereComponent },
   { path: 'detail-devoir', component: DetailExamComponent },
+  { path: 'detail-notation', component: DetailNotationComponent },
 
 
 ];

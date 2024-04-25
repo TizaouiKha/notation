@@ -19,7 +19,10 @@ export const environment = {
   supprimerExam: 'http://localhost:8080/exam/delete',
   enregistrerExam: 'http://localhost:8080/exam/add',
   modifierExam: 'http://localhost:8080/exam/update',
+  modifierPart: 'http://localhost:8080/part/update',
   enregistrerPart: 'http://localhost:8080/part/add',
+  rechercherParts: 'http://localhost:8080/part/all',
+  supprimerPart: 'http://localhost:8080/part/delete',
 
 
 };

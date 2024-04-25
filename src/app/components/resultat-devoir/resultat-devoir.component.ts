@@ -15,7 +15,7 @@ import {EtudiantService} from "../../service/etudiant.service";
 
 
 @Component({
-  selector: 'app-resultat-exam',
+  selector: 'app-resultat-devoir',
   standalone: true,
   imports: [MaterialModule, HttpClientModule, RouterLink],
   providers: [ExamService],
